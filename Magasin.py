@@ -22,7 +22,7 @@ def Magasin(player):
     liste_semis.remove('vide')
 
     def argent(root,r,c):
-                Votre_solde = Label(root, text=f"Votre solde: {semis[20]['Quantité']}€")
+                Votre_solde = Label(root, text=f"Votre solde: {semis[20]['Quantite']}€")
                 Votre_solde.grid(row=r,column=c,padx=5,pady=5)
 
     argent(Magasin_win,4,3)
@@ -63,29 +63,32 @@ def Magasin(player):
             def acheter_function():
                 nombre = float(nbr.get())
                 p = nombre*float(données_semis[n]['Prix'])
-                if askyesno('Achat',f"Voulez-vous acheter {nombre} de{semis[n]['Plante']}, pour {p}€ ?"):
-                    with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                        titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
-                        ecrivain = csv.DictWriter(fichier, fieldnames=titres)
-                        ecrivain.writeheader()
-                        semis[20]['Quantité'] = (float(semis[20]['Quantité']) - p)
-                        semis[n]['Quantité'] = round((float (semis[n]['Quantité']) + nombre),2)
-                        for compartiment in semis:
-                            ecrivain.writerow(compartiment)
-                    showinfo('Achat','Votre achat se trouve dans votre inventaire.')
-                    achat_win.destroy()
+                if float(semis[20]['Quantite']) >= p:
+                    if askyesno('Achat',f"Voulez-vous acheter {nombre} de{semis[n]['Plante']}, pour {p}€ ?"):
+                        with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
+                            titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantite','Informations']
+                            ecrivain = csv.DictWriter(fichier, fieldnames=titres)
+                            ecrivain.writeheader()
+                            semis[20]['Quantite'] = (float(semis[20]['Quantite']) - p)
+                            semis[n]['Quantite'] = round((float (semis[n]['Quantite']) + nombre),2)
+                            for compartiment in semis:
+                                ecrivain.writerow(compartiment)
+                        showinfo('Achat','Votre achat se trouve dans votre inventaire.')
+                        achat_win.destroy()
+                showerror('Achat',"Vous n'avez pas l'argent nécessaire pour cet achat")
+
 
             def vendre_function():
                 nombre = float(nbr.get())
-                if nombre <= float(semis[n]['Quantité']):
+                if nombre <= float(semis[n]['Quantite']):
                     p = nombre*float(données_semis[n]['Prix'])
                     if askyesno('Vendre',f"Voulez-vous vendre {nombre} de {semis[n]['Plante']}, pour {p}€ ?"):
                         with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                            titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
+                            titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantite','Informations']
                             ecrivain = csv.DictWriter(fichier, fieldnames=titres)
                             ecrivain.writeheader()
-                            semis[20]['Quantité'] = (float(semis[20]['Quantité']) + p)
-                            semis[n]['Quantité'] = round((float (semis[n]['Quantité']) - nombre),2)
+                            semis[20]['Quantite'] = (float(semis[20]['Quantite']) + p)
+                            semis[n]['Quantite'] = round((float (semis[n]['Quantite']) - nombre),2)
                             for compartiment in semis:
                                 ecrivain.writerow(compartiment)
                         showinfo('Vente','Vous avez vendu  ce(s) produit(s).')
@@ -101,7 +104,7 @@ def Magasin(player):
             vendre = Button(achat_win, text='Vendre', command=vendre_function, fg='yellow',bg='green', font=('Candara', 20))
             vendre.grid(row=1,column=1,padx=5,pady=5)
 
-            prix_unitaire = Label(achat_win, text=f"Prix unitaire: {semis[n]['Prix']}€", fg='yellow',bg='green', font=('Candara', 20))
+            prix_unitaire = Label(achat_win, text=f"Prix unitaire: {données_semis[n]['Prix']}€", fg='yellow',bg='green', font=('Candara', 20))
             prix_unitaire.grid(row=0,column=1,padx=5,pady=5)
             
             argent(achat_win,2,0)

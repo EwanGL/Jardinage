@@ -24,7 +24,7 @@ def Marché(player, new):
     def Vendre_function():
         prix = 
         
-        if askyesno('Vendre',f'Voulez-vous vendre {quantité.get()}, pour {prix} €?')
+        if askyesno('Vendre',f'Voulez-vous vendre {Quantite.get()}, pour {prix} €?')
 
     
     if new == False:
@@ -34,8 +34,8 @@ def Marché(player, new):
 
     dict_produits = {}
     for i in range(20):
-        if int(Plantes[i]['Quantité']) != 0:
-            dict_produit[Plantes[i]['Plante']] = Plantes[i]['Quantité']
+        if int(Plantes[i]['Quantite']) != 0:
+            dict_produit[Plantes[i]['Plante']] = Plantes[i]['Quantite']
 
     liste_produits = []
     for cle in liste_inventaire.keys():
@@ -47,8 +47,8 @@ def Marché(player, new):
     prod = produit.get
     max = dict_produits[prod]
 
-    quantité = Spinbox(frame, from_=0, to=max)
-    quantité.pack(padx=5,pady=5)
+    Quantite = Spinbox(frame, from_=0, to=max)
+    Quantite.pack(padx=5,pady=5)
 
     vendre_button = Button(frame, text='Vendre', command = Vendre_function, fg='yellow',bg='green', font=('Candara', 20)))
 

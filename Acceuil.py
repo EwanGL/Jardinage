@@ -45,13 +45,14 @@ def new_game_function():
                 for compartiment in plantations_pro:
                     ecrivain.writerow(compartiment)
             
-            semis_pro = Chargement.lireFichierCSV('Semis.csv')
+            semis_pro = Chargement.lireFichierCSV('Modèle_inventaire.csv')
             with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
+                titres = ['Num','Plante','Quantite']
                 ecrivain = csv.DictWriter(fichier, fieldnames=titres)
                 ecrivain.writeheader()
-                semis_pro[20]['Quantité'] = 20
-                semis_pro[16]['Quantité'] = 5
+                semis_pro[16]['Quantite'] = '2'
+                semis_pro[20]['Quantite'] = '20'
+                semis_pro[18]['Quantite'] = '2'
                 for compartiment in semis_pro:
                     ecrivain.writerow(compartiment)
             
@@ -88,8 +89,8 @@ def new_game_function():
         else:
             showerror('Important', 'Vous devez nommer cette partie.')
     
-    new_game.destroy()
-    continue_game.destroy()
+    new_game.pack_forget()
+    continue_game.pack_forget()
     Nametxt = Label(frame, text='Nom du joueur:', fg='yellow', bg = 'green', font=('Candara', 20))
     Nametxt.pack(padx=5, pady=5)
     Name = Entry(frame, textvariable='Nom du joueur', width = 17, font=('Candara', 20))
@@ -119,8 +120,8 @@ def continue_game_function():
                 Champs_button.destroy()
                 Inventaire_button.destroy()
                 Magasin_button.destroy()
-                Exit.destroy()
                 acceuil()
+                Exit.destroy()
         
         player = party.get()
         party.destroy()
@@ -137,8 +138,8 @@ def continue_game_function():
         Magasin_button.pack(padx=5, pady=5)
         Exit = Button(frame,text='Quitter la partie', fg='yellow', bg='green', command=Quitter, font=('Candara', 20))
         Exit.pack(padx=5, pady=5)
-    new_game.destroy()
-    continue_game.destroy()
+    new_game.pack_forget()
+    continue_game.pack_forget()
     liste_party=[]
     with open ('infos.txt','r') as r:
         d = r.read()

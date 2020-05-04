@@ -17,8 +17,8 @@ def Inventaire(player):
     
     liste_inventaire = {}
     for i in range(20):
-        if float(Plantes[i]['Quantité']) != 0 and Plantes[i]['Plante'] != "vide":
-            liste_inventaire[Plantes[i]['Plante']] = Plantes[i]['Quantité']
+        if float(Plantes[i]['Quantite']) != 0 and Plantes[i]['Plante'] != "vide":
+            liste_inventaire[Plantes[i]['Plante']] = Plantes[i]['Quantite']
 
     liste1, liste2 = "", ""
     for cle in liste_inventaire.keys():

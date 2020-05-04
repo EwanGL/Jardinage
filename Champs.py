@@ -18,14 +18,16 @@ def Champs(player):
     données_semis = Chargement.lireFichierCSV('Semis.csv')
 
     liste_semis = []
-    for i in range(19):
-        if Plantes[i]['Quantité'] != '0':
+    for i in range(20):
+        if Plantes[i]['Quantite'] != '0':
             liste_semis.append(Plantes[i]['Plante'])
-    liste_semis.remove('Engrais')
+    #liste_semis.remove('Engrais')
+    print (liste_semis)
 
     # MISSION 2 : Affichage des données enregistrées
 
     def cliquer(n):
+        print (n)
         return lambda: afficherInfos(n)
 
     def indice_plante(plante,liste):
@@ -127,10 +129,10 @@ def Champs(player):
                     for compartiment in plantations:
                         ecrivain.writerow(compartiment)
                 with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                    titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
+                    titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantite','Informations']
                     ecrivain = csv.DictWriter(fichier, fieldnames=titres)
                     ecrivain.writeheader()
-                    Plantes[a]['Quantité'] = float(Plantes[a]['Quantité'])+ 5
+                    Plantes[a]['Quantite'] = float(Plantes[a]['Quantite'])+ 5
                     for compartiment in Plantes:
                         ecrivain.writerow(compartiment)
                 dialogue.destroy()
@@ -165,7 +167,7 @@ def Champs(player):
                         type_plante = données_semis[i]['Types']
                         num = i
                 
-                if float(Plantes[num]['Quantité']) >= 1 :
+                if float(Plantes[num]['Quantite']) >= 1 :
                     if type_plante != plantations[n]['type_avant']:
                         with open(f'Classeur_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
                             titres = ['num','semis','date_semis','date_levée','date_récolte','type_avant','arroser']
@@ -182,10 +184,10 @@ def Champs(player):
                         for i in range (0,19): 
                             if Plantes[i]['Plante'] == semis.get():
                                 with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                                    titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
+                                    titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantite','Informations']
                                     ecrivain = csv.DictWriter(fichier, fieldnames=titres)
                                     ecrivain.writeheader()
-                                    Plantes[i]['Quantité'] = float(Plantes[i]['Quantité']) -1
+                                    Plantes[i]['Quantite'] = float(Plantes[i]['Quantite']) -1
                                     for compartiment in Plantes:
                                         ecrivain.writerow(compartiment)
 
@@ -207,10 +209,10 @@ def Champs(player):
                 for compartiment in plantations:
                     ecrivain.writerow(compartiment)
             with open(f'Inventaire_{player}.csv', 'w', newline='', encoding = 'utf-8')as fichier:
-                        titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantité','Informations']
+                        titres = ['Num','Plante','Levée','Récolte','Types','Prix','Quantite','Informations']
                         ecrivain = csv.DictWriter(fichier, fieldnames=titres)
                         ecrivain.writeheader()
-                        Plantes[20]['Quantité'] =float(Plantes[20]['Quantité'])-1
+                        Plantes[20]['Quantite'] =float(Plantes[20]['Quantite'])-1
                         for compartiment in Plantes:
                             ecrivain.writerow(compartiment)
             showinfo('Information', "La parcelle a retrouvé tous ses nutriments, vous pouvez désormais planter n'importe quel type de plante.")
@@ -277,7 +279,6 @@ def Champs(player):
                 carre[numero].configure(image = MesImages[plante])
             carre[numero].configure(command = cliquer(numero))   # On associe le bouton à la fonction cliquer.    
             carre[numero].grid(row = numero//4, column=numero%4) # On place le bouton
-
     actualiser(maFenetre)
 
     maFenetre.mainloop()
